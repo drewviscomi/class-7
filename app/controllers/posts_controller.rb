@@ -1,20 +1,31 @@
 class PostsController < ApplicationController
-
   def index
-    # find all Post rows
     @posts = Post.all
-    # render posts/index view
   end
 
   def new
-    # render posts/new view with new Post form
+    @post = Post.new
   end
 
-  # def create
-  #   # start with a new Post
-  #   # assign user-entered form data to Post's columns
-  #   # save Post row
-  #   # redirect user
-  # end
+  def create
+    @post = Post.new(post_params)
 
+    if @post.save
+      redirect_to posts_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to posts_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:author, :body, :image)
+  end
 end

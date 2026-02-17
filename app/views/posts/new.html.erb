@@ -1,6 +1,24 @@
 <h1>New Post</h1>
 
-<form action="/posts" method="post">
-  <%# add form fields %>
-  <button>Submit</button>
-</form>
+<%= form_with model: @post, local: true do |f| %>
+  <div>
+    <%= f.label :author %><br>
+    <%= f.text_field :author %>
+  </div>
+
+  <div>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.label :image, "Image URL" %><br>
+    <%= f.text_field :image %>
+  </div>
+
+  <div>
+    <%= f.submit "Create Post" %>
+  </div>
+<% end %>
+
+<p><%= link_to "Back to posts", posts_path %></p>

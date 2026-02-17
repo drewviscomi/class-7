@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   get("/bitcoins", {:controller => "bitcoins", :action => "index"})
 
   resources "companies"
-  # get("/companies", {:controller => "companies", :action => "index"})
   resources "contacts"
-  # get("/contacts", {:controller => "contacts", :action => "index"})
 
-  resources "posts"
-  # get("/posts", {:controller => "posts", :action => "index"})
+  # If you want ALL posts routes (index/new/create/show/edit/update/destroy):
+  # resources "posts"
+
+  # If you only want the lab routes:
+  resources :posts, only: [:index, :new, :create, :destroy]
 end
+
